@@ -18,19 +18,16 @@ def tryPort(com):
         #  print(port_name + " unavailable")
         return False
 
-
 def init():
     available = False
     for comPort in range(1, 12):
         if tryPort(comPort):
             available = True
-            print ("Connection established at COM" +
+            print ("Connection established: COM" +
                    str(comPort) + ", please wait.")
             time.sleep(2)
             break
     if available:
-        #print ("Testing LEDs... Initializing RGB sequence")
-        # flash()
         print ("KLAR TIL PLING!")
 
 def new_file(name):
