@@ -6,11 +6,12 @@ import os
 import logging
 
 
-def setup_logger(name, log_file, level=logging.INFO):
+def setup_logger(name, log_file):
     handler = logging.FileHandler(log_file)
-    handler.setFormatter(logging.Formatter('%(time)s %(message)s'))
+    handler.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
 
     logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
     logger.addHandler(handler)
 
     return logger
@@ -90,5 +91,5 @@ if __name__ == "__main__":
             play(warning)
             play(song)
             play_pause()
-            # safety net
-            data = False
+            time.sleep(30)  # 30 second delay after a pling
+        time.sleep(0.2)

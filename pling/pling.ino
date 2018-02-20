@@ -10,10 +10,12 @@ void setup(){
 void loop(){
   btn = digitalRead(BTN);
   if (btn != prevBtn){
-    prevBtn = btn;
     Serial.println(true);
-    delay(25000); // the duration of DAS-DASS
+    Serial.flush();
+    // wait for whatever song to finish
+    delay(30000);
   }
-  delay(300);
-  Serial.flush();
+  // the button change happens in the 200ms delay
+  prevBtn = digitalRead(BTN);
+  delay(200);
 }
