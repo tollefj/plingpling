@@ -1,0 +1,4 @@
+pyserial
+pypiwin32
+https://github.com/AndreMiras/pycaw/archive/develop.zip
+
