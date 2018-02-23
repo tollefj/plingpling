@@ -13,7 +13,7 @@ void loop(){
     Serial.println(true);
     Serial.flush();
     // wait for whatever song to finish
-    delay(30000);
+    delay(20000);
   }
   // the button change happens in the 200ms delay
   prevBtn = digitalRead(BTN);
