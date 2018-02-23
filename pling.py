@@ -55,7 +55,7 @@ def init():
             time.sleep(2)
             break
     if available:
-        print ('READY TO PLING!')
+        print ('Klar til pling!')
 
 
 def new_file(name):
@@ -79,6 +79,7 @@ if __name__ == "__main__":
     # .WAV is added in the function new_file
     warning = new_file('warning')
     song = new_file('song')
+    print ('Når plingen aktiveres, settes spotify på pause, og spiller så en alarm->das-dass. Det vil si at hvis youtube e.l. brukes, vil ikke musikken pauses. Hvis spotify er pauset, vil det si at musikken startes når plingen aktiveres - foreløpig ingen fiks for dette!')
 
     while True:
         # read "1" from the arduino when the button is toggled
@@ -86,10 +87,8 @@ if __name__ == "__main__":
         if data:
             # log this event!
             pling_log.info("ny pling!")
-            print ('PLING PLONG')
             play_pause()
             play(warning)
             play(song)
             play_pause()
-            time.sleep(30)  # 30 second delay after a pling
         time.sleep(0.2)
