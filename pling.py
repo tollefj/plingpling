@@ -4,7 +4,7 @@ import win32api
 import winsound
 import os
 import logging
-
+from pycaw.pycaw import AudioUtilities
 
 def setup_logger(name, log_file):
     handler = logging.FileHandler(log_file)
@@ -22,11 +22,6 @@ pling_log = setup_logger('pling_count', 'pling_count.log')
 
 # used to keep track of when the PC is switched on
 status_log.info('Opened pling!')
-
-# 0xB3 is the key mapped to "play/pause" on media keyboards
-# Map this key through the win32 api
-PLAY_PAUSE = 0xB3
-PP_MAP = win32api.MapVirtualKey(PLAY_PAUSE, 0)
 
 # Setup arduino
 ard = serial.Serial()
@@ -50,8 +45,6 @@ def init():
     for comPort in range(2, 12):
         if tryPort(comPort):
             available = True
-            print ("Connection established: COM" +
-                   str(comPort) + ", please wait.")
             time.sleep(2)
             break
     if available:
@@ -67,28 +60,30 @@ def play(sound):
     winsound.PlaySound(sound, winsound.SND_FILENAME)
 
 
-# create a keyboard event, simulating the media key
-def play_pause():
-    win32api.keybd_event(PLAY_PAUSE, PP_MAP)
+def toggle_volume(mute=True):
+    apps = ['Spotify.exe', 'chrome.exe']
+    sessions = AudioUtilities.GetAllSessions()
+    for session in sessions:
+        volume = session.SimpleAudioVolume
+        if session.Process and session.Process.name() in apps:
+                volume.SetMute(mute, None)
+
 
 
 if __name__ == "__main__":
-    init()
+    #  init()
     # IMPORTANT:
     # ONLY include the file name here, not the file extension
     # .WAV is added in the function new_file
     warning = new_file('warning')
     song = new_file('song')
-    print ('Når plingen aktiveres, settes spotify på pause, og spiller så en alarm->das-dass. Det vil si at hvis youtube e.l. brukes, vil ikke musikken pauses. Hvis spotify er pauset, vil det si at musikken startes når plingen aktiveres - foreløpig ingen fiks for dette!')
-
     while True:
-        # read "1" from the arduino when the button is toggled
+        #  read "1" from the arduino when the switch is toggled
         data = ard.readline()[:-2]  # ignore newline
         if data:
-            # log this event!
+            toggle_volume() # mute spotify og chrome!
+            #log this event!
             pling_log.info("ny pling!")
-            play_pause()
             play(warning)
-            play(song)
-            play_pause()
-        time.sleep(0.2)
+            #  play(song)
+            toggle_volume(mute=False)
