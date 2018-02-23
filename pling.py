@@ -71,7 +71,7 @@ def toggle_volume(mute=True):
 
 
 if __name__ == "__main__":
-    #  init()
+    init()
     # IMPORTANT:
     # ONLY include the file name here, not the file extension
     # .WAV is added in the function new_file
