@@ -4,7 +4,7 @@ import win32api
 import winsound
 import os
 import logging
-from pycaw.pycaw import AudioUtilities
+from pycaw import AudioUtilities
 
 def setup_logger(name, log_file):
     handler = logging.FileHandler(log_file)
@@ -85,5 +85,5 @@ if __name__ == "__main__":
             #log this event!
             pling_log.info("ny pling!")
             play(warning)
-            #  play(song)
+            play(song)
             toggle_volume(mute=False)
