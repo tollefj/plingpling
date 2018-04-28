@@ -4,7 +4,7 @@ import win32api
 import winsound
 import os
 import logging
-from pycaw.pycaw import AudioUtilities
+from pycaw import AudioUtilities
 
 def setup_logger(name, log_file):
     handler = logging.FileHandler(log_file)
