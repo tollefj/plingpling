@@ -75,7 +75,7 @@ if __name__ == "__main__":
     # IMPORTANT:
     # ONLY include the file name here, not the file extension
     # .WAV is added in the function new_file
-    warning = new_file('warning')
+    warning = new_file('morebeer')
     song = new_file('song')
     while True:
         #  read "1" from the arduino when the switch is toggled
